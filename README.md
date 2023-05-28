@@ -1,14 +1,14 @@
-Pipeline: AppPHPFPM
+# Pipeline: AppPHPFPM
 
-**Introdução:**
+## Introdução:
 
-A pipeline "AppPHPFPM" é um conjunto de passos automatizados para implantar um aplicativo PHP em um servidor EC2 na AWS.
+A pipeline "AppPHPFPM" é um conjunto de passos automatizados para implantar um aplicativo PHP em um servidor EC2 na AWS, utilizando o serviço de cluster ECS.
 
-**Objetivo:**
+## Objetivo:
 
-O objetivo desta pipeline é automatizar o processo de implantação do aplicativo PHP em um ambiente de servidor EC2 na AWS, garantindo a transferência correta de arquivos, configuração do ambiente, execução do aplicativo, criação de um Load Balancer e Target Group.
+O objetivo desta pipeline é automatizar o processo de implantação do aplicativo PHP em um ambiente de servidor EC2 na AWS, garantindo a transferência correta de arquivos, configuração do ambiente, execução do aplicativo, criação de um cluster ECS, Load Balancer e Target Group.
 
-**Ações:**
+## Ações:
 
 1. **Gerar novas chaves SSH**:
    ```shell
@@ -72,19 +72,22 @@ O objetivo desta pipeline é automatizar o processo de implantação do aplicati
    shell: bash
    ```
 
-10. **Execute App**:
+10. **Create Cluster ECS**:
+    - Crie um cluster ECS na AWS para hospedar e orquestrar os contêineres do aplicativo.
+    - Configure os parâmetros necessários para o cluster, como
+
+ o tipo de instância, tamanho e configuração.
+
+11. **Execute App**:
     ```shell
     run: |
       ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key "$remote_host" "cd /home/ec2-user && docker-compose up -d"
     shell: bash
-    ```
 
-11. **Create Load Balancer and Target Group**:
-    - Crie um Load Balancer e um Target Group na AWS para distribuir
-
- o tráfego entre as instâncias do EC2.
+12. **Create Load Balancer and Target Group**:
+    - Crie um Load Balancer e um Target Group na AWS para distribuir o tráfego entre as instâncias do EC2.
     - Configure os parâmetros necessários para o Load Balancer e o Target Group, como protocolos, portas e instâncias de destino.
 
-**Conclusão:**
+## Conclusão:
 
-A pipeline "AppPHPFPM" automatiza o processo de implantação de um aplicativo PHP em um servidor EC2 na AWS. Ela gera novas chaves SSH, atualiza o arquivo authorized_keys no host remoto, realiza o checkout do repositório, configura as credenciais da AWS, cria uma chave SSH, transfere arquivos para a instância do EC2, instala o Docker Compose e executa o aplicativo. Além disso, a pipeline também cria um Load Balancer e um Target Group para garantir a distribuição eficiente do tráfego entre as instâncias do EC2. Antes de executar o push, lembre-se de copiar o resultado do comando `ssh-keyscan` e colar na variável `SSH_KNOWN_HOSTS` na configuração do GitHub.
+A pipeline "AppPHPFPM" automatiza o processo de implantação de um aplicativo PHP em um servidor EC2 na AWS. Ela gera novas chaves SSH, atualiza o arquivo authorized_keys no host remoto, realiza o checkout do repositório, configura as credenciais da AWS, cria uma chave SSH, transfere arquivos para a instância do EC2, instala o Docker Compose, cria um cluster ECS, executa o aplicativo e cria um Load Balancer com um Target Group. Antes de executar o push, lembre-se de copiar o resultado do comando `ssh-keyscan` e colar na variável `SSH_KNOWN_HOSTS` na configuração do GitHub.
