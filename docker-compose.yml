@@ -25,6 +25,7 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql-conf:/etc/mysql/conf.d
+      - ./dados.sql:/docker-entrypoint-initdb.d/dados.sql 
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=sci
