@@ -1,0 +1,38 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - sci
+    depends_on:
+      - php
+
+  php:
+    container_name: php-fpm
+    build: .
+    volumes:
+      - ./index.php:/var/www/html/index.php
+    networks:
+      - sci
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./mysql-conf:/etc/mysql/conf.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sci
+    networks:
+      - sci
+    depends_on:
+      - php
+
+networks:
+  sci:
+    driver: bridge
