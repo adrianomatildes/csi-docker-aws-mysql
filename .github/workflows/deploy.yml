@@ -29,18 +29,18 @@ jobs:
 
       - name: Transfer files to EC2 instance
         run: |
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key -r ./* ec2-user@ec2-52-2-2-166.compute-1.amazonaws.com:/home/ec2-user/
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key -r ./* ec2-user@ec2-3-90-210-76.compute-1.amazonaws.com:/home/ec2-user/
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key -r ./* ec2-user@ec2-3-95-155-186.compute-1.amazonaws.com:/home/ec2-user/
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key -r ./* ec2-user@ec2-54-204-176-40.compute-1.amazonaws.com:/home/ec2-user/
         shell: bash
 
       - name: Install Docker Compose on EC2 instance
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-52-2-2-166.compute-1.amazonaws.com "curl -L 'https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)' -o docker-compose && chmod +x docker-compose && sudo mv docker-compose /usr/local/bin/"
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-3-90-210-76.compute-1.amazonaws.com "curl -L 'https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)' -o docker-compose && chmod +x docker-compose && sudo mv docker-compose /usr/local/bin/"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-3-95-155-186.compute-1.amazonaws.com "curl -L 'https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)' -o docker-compose && chmod +x docker-compose && sudo mv docker-compose /usr/local/bin/"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-54-204-176-40.compute-1.amazonaws.com "curl -L 'https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)' -o docker-compose && chmod +x docker-compose && sudo mv docker-compose /usr/local/bin/"
         shell: bash
 
       - name: Execute App
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-52-2-2-166.compute-1.amazonaws.com "cd /home/ec2-user && docker-compose up -d"
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-3-90-210-76.compute-1.amazonaws.com "cd /home/ec2-user && docker-compose up -d"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-3-95-155-186.compute-1.amazonaws.com "cd /home/ec2-user && docker-compose up -d"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ec2-user@ec2-54-204-176-40.compute-1.amazonaws.com "cd /home/ec2-user && docker-compose up -d"
         shell: bash
