@@ -51,7 +51,7 @@ O objetivo desta pipeline é automatizar o processo de implantação do aplicati
      echo "$SSH_PRIVATE_KEY" > ~/.ssh/private_key
      chmod 600 ~/.ssh/private_key
      echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-     remote_host=$(echo "$SSH_KNOWN_HOSTS" | cut -d' ' -f1)  # Extrai o nome da máquina remota do arquivo known_hosts
+     remote_host=$(echo "$SSH_KNOWN_HOSTS" | cut -d' ' -f1)
    shell: bash
    env:
      SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
